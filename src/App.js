@@ -4,17 +4,29 @@ import Header from "./Components/header/Header";
 import HomePage from "./Pages/homepage/HomePage.jsx";
 import ShopPage from "./Pages/shop/ShopPage";
 import SignInAndSignUpPage from "./Pages/signIn-and-signUp/SignInAndSignUpPage";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useEffect, useState } from "react";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
+
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged((user) => {
+    const unsub = auth.onAuthStateChanged(async (user) => {
       setCurrentUser(user);
+      if (user) {
+
+        setCurrentUser(user)
+        if (user.displayName) {
+          const userData = {
+            email: user.email,
+            displayName: user.displayName,
+            uid: user.uid
+          }
+          await createUserProfileDocument(userData)
+        }
+      }
     });
     return unsub;
-  }, []);
+  }, [currentUser]);
   return (
     <div className="App">
       <Header currentUser={currentUser} />

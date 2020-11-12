@@ -1,0 +1,11 @@
+.sign-in-and-sign-out {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 850px;
+  margin: 30px auto;
+}
+/*# sourceMappingURL=signIn-and-signUp.styles.css.map */

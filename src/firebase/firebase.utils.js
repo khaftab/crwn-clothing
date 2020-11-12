@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+
 const config = {
   apiKey: "AIzaSyAwF14QFJdN9iufCvNyG_We3OQ0i5Xx8vc",
   authDomain: "crown-clothing-86bd9.firebaseapp.com",
@@ -13,6 +14,8 @@ const config = {
 };
 
 firebase.initializeApp(config);
+export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
@@ -20,5 +23,30 @@ export const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+
+  if (!userAuth) return
+  if (userAuth) {
+
+    const userData = {
+      email: userAuth.email,
+      displayName: userAuth.displayName,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      ...additionalData
+    }
+
+    const snapshot = await firestore.collection('users').doc(userAuth.uid).get()
+
+    if (!snapshot.exists) {
+      try {
+        await firestore.collection('users').doc(userAuth.uid).set({ ...userData })
+      } catch (err) {
+        console.log('error while updaing the firestore database in the users collection', err.message)
+      }
+    }
+    return userData
+  }
+}
 
 export default firebase;
