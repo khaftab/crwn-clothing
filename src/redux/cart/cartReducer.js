@@ -1,7 +1,7 @@
 import userTypes from './cartTypes'
-import { addItemToCart } from './cartUtils'
+import { addItemToCart, removeItem } from './cartUtils'
 
-const { TOGGLE_CART_HIDDEN, ADD_ITEM } = userTypes
+const { TOGGLE_CART_HIDDEN, ADD_ITEM, REMOVE_ITEM, CLEAR_ITEM_FROM_CART } = userTypes
 const INITIAL_STATE = {
     hidden: false,
     cartItems: []
@@ -19,6 +19,18 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 cartItems: addItemToCart(state.cartItems, action.payload)
+            }
+
+        case REMOVE_ITEM:
+            return {
+                ...state,
+                cartItems: removeItem(state.cartItems, action.payload)
+            }
+
+        case CLEAR_ITEM_FROM_CART:
+            return {
+                ...state,
+                cartItems: state.cartItems.filter(cartItem => cartItem.id !== action.payload.id)
             }
 
         default:
