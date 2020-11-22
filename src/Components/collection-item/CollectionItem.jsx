@@ -6,11 +6,12 @@ import { addItem } from '../../redux/cart/cartActions'
 
 function CollectionItem({ item, addItem }) {
     const { name, price, imageUrl } = item
+    console.log(item)
     return (
         <div className='collection-item'>
-            <figure className='image' style={{ backgroundImage: `url(${imageUrl})` }}>
+            <div className='image' style={{ backgroundImage: `url(${imageUrl})` }}>
 
-            </figure>
+            </div>
             <div className="collection-footer">
                 <span className="name">{name}</span>
                 <span className="price">{price}</span>
