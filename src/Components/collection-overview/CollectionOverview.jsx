@@ -9,7 +9,7 @@ function CollectionOverview({ collections }) {
 
     return (
         <div className='collection-overview'>
-            {collections.map(({ id, ...restProperty }) => (
+            {collections && collections.map(({ id, ...restProperty }) => (
                 <CollectionPreview key={id} {...restProperty} />
             ))}
         </div>

@@ -12,7 +12,8 @@ import { connect } from 'react-redux'
 import { selectCurrentUser } from "./redux/user/userSelector";
 import { createStructuredSelector } from 'reselect'
 
-function App({ setCurrentUser, currentUser }) {
+
+function App({ setCurrentUser, currentUser, collections }) {
 
 
   useEffect(() => {
@@ -31,8 +32,11 @@ function App({ setCurrentUser, currentUser }) {
         }
       }
     });
+
     return unsub;
   }, [setCurrentUser]);
+
+
   return (
     <div className="App">
       <Header />
@@ -47,7 +51,7 @@ function App({ setCurrentUser, currentUser }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 })
 
 const mapDispatchToProps = dispatch => ({

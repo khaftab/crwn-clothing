@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.utils'
 import { connect } from 'react-redux'
@@ -9,24 +8,33 @@ import CartDropdown from '../cart-dropdown/CartDropdown'
 import { selectCurrentUser } from '../../redux/user/userSelector'
 import { selectCartHidden } from '../../redux/cart/cartSelector'
 import { createStructuredSelector } from 'reselect'
+import { HeaderContainer, LogoContainer, OptionContainer, OptionLink } from './HeaderContainer.styles'
+import { signOutUser } from '../../redux/user/userActions'
 
-function Header({ currentUser, hidden }) {
+function Header({ currentUser, hidden, signOutUser }) {
+
+
+    const handleSignOut = () => {
+        auth.signOut()
+        signOutUser()
+    }
     return (
-        <nav className='header'>
-            <Link to='/' className='logo-container'>
+        <HeaderContainer>
+            <LogoContainer to='/'>
                 <Logo className='logo' />
-            </Link>
-            <div className="options">
-                <Link to='/shop' className='option'>SHOP</Link>
-                <Link to='/contact' className='option'>CONTACT</Link>
+            </LogoContainer>
+            <OptionContainer >
+                <OptionLink to='/shop'>SHOP</OptionLink>
+                <OptionLink to='/contact'>CONTACT</OptionLink>
                 {
-                    currentUser ? <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
-                        : <Link to='signin' className='option'>SIGN IN</Link>
+                    currentUser && <OptionLink as='div' onClick={handleSignOut}>SIGN OUT</OptionLink>
+
                 }
+                {!currentUser && <OptionLink to='/signin'>SIGN IN</OptionLink>}
                 <CartIcon />
-            </div>
+            </OptionContainer>
             {hidden && <CartDropdown />}
-        </nav>
+        </HeaderContainer>
     )
 }
 
@@ -36,5 +44,10 @@ const mapStateToProps = createStructuredSelector({
 })
 
 
+const mapDispatchToProps = dispatch => ({
+    signOutUser: () => dispatch(signOutUser())
+})
 
-export default connect(mapStateToProps)(Header)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
