@@ -13,7 +13,7 @@ import { selectCurrentUser } from "./redux/user/userSelector";
 import { createStructuredSelector } from 'reselect'
 
 
-function App({ setCurrentUser, currentUser, collections }) {
+function App({ setCurrentUser, currentUser }) {
 
 
   useEffect(() => {
