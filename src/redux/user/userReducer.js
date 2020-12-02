@@ -1,23 +1,38 @@
 import userTypes from './userTypes'
-const { SET_CURRENT_USER, SIGN_OUT_USER } = userTypes
+const { SIGN_IN_SUCCESS, SIGN_IN_FAILURE, SIGN_OUT_FAILURE, SIGN_OUT_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } = userTypes
 
 const INITIAL_STATE = {
-    currentUser: null
+    currentUser: null,
+    error: ''
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case SET_CURRENT_USER:
+        case SIGN_IN_SUCCESS:
+            console.log(action.payload)
             return {
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload,
+                error: ''
             }
 
-        case SIGN_OUT_USER:
+        case SIGN_OUT_SUCCESS:
             return {
                 ...state,
-                currentUser: null
+                currentUser: null,
+                error: ''
             }
+
+        case SIGN_IN_FAILURE:
+        case SIGN_OUT_FAILURE:
+        case SIGN_UP_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case SIGN_UP_SUCCESS:
+            console.log(action.payload)
+
         default:
             return state
     }

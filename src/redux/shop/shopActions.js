@@ -27,3 +27,4 @@ export const fetchCollectionAsync = () => {
         }).catch(err => dispatch(fetchCollectionFailure(err.message)))
     }
 }
+

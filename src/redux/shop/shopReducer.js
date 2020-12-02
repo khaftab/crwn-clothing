@@ -1,4 +1,3 @@
-import SHOP_DATA from '../shop/shop.data'
 import shopActionTypes from './shopTypes'
 const { FETCH_COLLECTIONS_FAILURE, FETCH_COLLECTIONS_START, FETCH_COLLECTIONS_SUCCESS } = shopActionTypes
 
@@ -31,6 +30,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 isFetching: false,
                 errMessage: action.payload
             }
+
         default:
             return state
     }

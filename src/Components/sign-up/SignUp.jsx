@@ -3,8 +3,10 @@ import './sign-up.styles.scss'
 import FormInput from '../form-input/FormInput'
 import CustomButton from '../custom-button/CustomButton'
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
+import { signUpStart } from '../../redux/user/userActions'
+import { connect } from 'react-redux'
 
-function SignUp() {
+function SignUp({ signUpStart }) {
 
     const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
@@ -13,22 +15,30 @@ function SignUp() {
     const handleSubmit = async e => {
         e.preventDefault()
 
+
         if (password !== confirmPassword) {
             alert("Password don't match")
             return
         }
 
-        try {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
-            user.updateProfile({ displayName: displayName })
-            createUserProfileDocument({ email: user.email, displayName: displayName, uid: user.uid })
-            setDisplayName('')
-            setEmail('')
-            setPassword('')
-            setConfirmPassword('')
-        } catch (err) {
-            console.log('something went wrong while sign up', err)
-        }
+        signUpStart(displayName, email, password)
+
+        setDisplayName('')
+        setEmail('')
+        setPassword('')
+        setConfirmPassword('')
+
+        // try {
+        //     const { user } = await auth.createUserWithEmailAndPassword(email, password)
+        //     user.updateProfile({ displayName: displayName })
+        //     createUserProfileDocument({ email: user.email, displayName: displayName, uid: user.uid })
+        //     setDisplayName('')
+        //     setEmail('')
+        //     setPassword('')
+        //     setConfirmPassword('')
+        // } catch (err) {
+        //     console.log('something went wrong while sign up', err)
+        // }
     }
 
 
@@ -77,7 +87,12 @@ function SignUp() {
     )
 }
 
-export default SignUp
+const mapDispatchToProps = dispatch => ({
+    signUpStart: (displayName, email, password) => dispatch(signUpStart({ displayName, email, password }))
+})
+
+
+export default connect(null, mapDispatchToProps)(SignUp)
 
 
 

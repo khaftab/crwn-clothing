@@ -7,34 +7,18 @@ import SignInAndSignUpPage from "./Pages/signIn-and-signUp/SignInAndSignUpPage";
 import Checkout from './Pages/checkout/Checkout'
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useEffect } from "react";
-import { setCurrentUser } from './redux/user/userActions'
 import { connect } from 'react-redux'
 import { selectCurrentUser } from "./redux/user/userSelector";
 import { createStructuredSelector } from 'reselect'
+import { checkUserSession } from "./redux/user/userActions";
 
 
-function App({ setCurrentUser, currentUser }) {
+function App({ currentUser, checkUserSession }) {
 
 
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async (user) => {
-
-      if (user) {
-
-        setCurrentUser(user)
-        if (user.displayName) {
-          const userData = {
-            email: user.email,
-            displayName: user.displayName,
-            uid: user.uid
-          }
-          await createUserProfileDocument(userData)
-        }
-      }
-    });
-
-    return unsub;
-  }, [setCurrentUser]);
+    checkUserSession()
+  }, [])
 
 
   return (
@@ -55,7 +39,9 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  checkUserSession: () => dispatch(checkUserSession())
 })
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
