@@ -2,22 +2,19 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { createStructuredSelector } from 'reselect'
-import CollectionOverview from '../../Components/collection-overview/CollectionOverview'
-import WithSpinner from '../../Components/with-spinner/WithSpinner'
 import { fetchCollectionAsync, fetchCollectionStart } from '../../redux/shop/shopActions'
-import Collection from '../collection/Collection'
 import { selectIsCollectionLoaded } from '../../redux/shop/shopSelector'
 import CollectionOverviewContainer from '../../Components/collection-overview/CollectionOverviewContainer'
 import CollectionContainer from '../collection/CollectionContainer'
 
 function Shop({ match, isCollectionLoaded, fetchCollectionAsync, fetchCollectionStart }) {
 
-    const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview)
-    const CollectionPageWithSpinner = WithSpinner(Collection)
+    // const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview)
+    // const CollectionPageWithSpinner = WithSpinner(Collection)
     useEffect(() => {
         // fetchCollectionAsync()
         fetchCollectionStart()
-    }, [])
+    }, [fetchCollectionStart])
 
     return (
         <div className='shop-page'>

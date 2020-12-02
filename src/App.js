@@ -5,7 +5,6 @@ import HomePage from "./Pages/homepage/HomePage";
 import ShopPage from "./Pages/shop/ShopPage";
 import SignInAndSignUpPage from "./Pages/signIn-and-signUp/SignInAndSignUpPage";
 import Checkout from './Pages/checkout/Checkout'
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useEffect } from "react";
 import { connect } from 'react-redux'
 import { selectCurrentUser } from "./redux/user/userSelector";
@@ -18,7 +17,7 @@ function App({ currentUser, checkUserSession }) {
 
   useEffect(() => {
     checkUserSession()
-  }, [])
+  }, [checkUserSession])
 
 
   return (
