@@ -32,7 +32,7 @@ function Checkout({ cartItems, total }) {
                 cartItems.map(cartItem => <CheckoutItem key={cartItem.id} cartItem={cartItem} />)
             }
             <div className="total">
-                TOTAL: ${total}
+                TOTAL: &#8377;{total}
             </div>
             <div className="test-warning">
                 *Please use this demo credit card details to make payment*

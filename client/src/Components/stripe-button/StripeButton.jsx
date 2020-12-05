@@ -1,5 +1,6 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
+import axios from 'axios'
 
 function StripeButton({ price }) {
     const priceForStripe = price * 100
@@ -7,7 +8,18 @@ function StripeButton({ price }) {
 
     const onToken = token => {
         console.log(token)
-        alert('Payment is succesfull')
+
+        axios({
+            url: 'payment',
+            method: 'post',
+            data: {
+                amount: priceForStripe,
+                token
+            }
+        }).then(response => alert('Payment is succesfull')).catch(err => {
+            console.log(`Payment error ${err}`)
+            alert('There is an issue with your payment. Please make sure you enter the correct the details of the card')
+        })
     }
     return (
 
@@ -20,8 +32,9 @@ function StripeButton({ price }) {
             shippingAddress
             amount={priceForStripe}
             token={onToken}
-            description={`Your total price is $${price}`}
+            description={`Your total price is \u20B9${price}`} // unicode does not apply on dec code it works on hex code 
             stripeKey={publishableKey}
+            currency='INR'
         />
 
     )
