@@ -31,8 +31,8 @@ app.listen(port, error => {
     console.log(`Server is runnig on Port ${port}`)
 })
 
-app.get('/serviceWorker.js', (req, res) => {
-    res.sendFile(__dirname, '..', 'build', 'serviceWorker.js')
+app.get('/service-worker.js', (req, res) => {
+    res.sendFile(__dirname, '..', 'build', 'service-worker.js')
 })
 
 app.post('/payment', (req, res) => {
