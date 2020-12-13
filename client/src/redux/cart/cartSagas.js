@@ -4,7 +4,6 @@ import userTypes from '../user/userTypes'
 const { SIGN_OUT_SUCCESS } = userTypes
 
 export function* clearCartOnSignOut() {
-    yield console.log('i am fired')
     yield put(clearCart())
 }
 

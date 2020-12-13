@@ -20,6 +20,20 @@ width: 22vw;
       display: flex;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    width: 40vw;
+
+    &:hover {
+      .image {
+        opacity: unset;
+      }
+  
+      button {
+        opacity: unset;
+      }
+
+  }
 `
 
 export const BackgroundImage = styled.div`
@@ -37,6 +51,13 @@ opacity: 0.7;
 position: absolute;
 top: 255px;
 display: none;
+
+@media screen and (max-width: 800px) {
+  display: block;
+  opacity: 0.9;
+  min-width: unset;
+  padding: 0 10px;
+}
 `
 
 export const CollectionFooter = styled.div`

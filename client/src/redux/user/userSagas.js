@@ -8,7 +8,6 @@ const { GOOGLE_SIGN_IN_START, EMAIL_SIGN_IN_START, CHECK_USER_SESSION, SIGN_OUT_
 export function* getSnapshotFromUserAuth(userAuth) {
     try {
         const userData = yield call(createUserProfileDocument, userAuth)
-        console.log(userData)
         yield put(signInSuccess(userData))
     } catch (err) {
         yield put(signInFailure(err))
@@ -33,7 +32,6 @@ export function* onGoogleSignInStart() {
 }
 
 export function* signInWithEmail({ payload: { email, password } }) {
-    yield console.log('haka')
     try {
         const { user } = yield auth.signInWithEmailAndPassword(email, password)
         // yield put(signInSuccess(user))
@@ -48,7 +46,6 @@ export function* onEmailSignInStart() {
 }
 
 export function* isAuthenticated() {
-    yield console.log('haka')
     try {
         const userAuth = yield getCurrentUser()
         if (!userAuth) return

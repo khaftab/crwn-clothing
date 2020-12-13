@@ -1,6 +1,15 @@
 .sign-in-and-sign-out {
   display: flex;
   justify-content: space-between;
-  width: 850px;
+  max-width: 850px;
   margin: 30px auto;
+
+  @media screen and (max-width: 926px) {
+    & {
+      flex-direction: column;
+      height: 950px;
+      justify-content: space-between !important;
+      align-items: center;
+    }
+  }
 }

@@ -19,7 +19,6 @@ export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-  console.log(userAuth)
   if (!userAuth) return
   if (userAuth) {
 
