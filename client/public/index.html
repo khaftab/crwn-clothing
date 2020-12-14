@@ -37,7 +37,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("./serviceWorker.js")
+            .register("./serviceworker.js")
             .then((reg) => console.log("success ", reg.scope))
             .catch((err) => console.log("failed ", err));
         });
